@@ -1,3 +1,4 @@
+from Model.product import Product
 from dao.storage import Storage
 import sqlite3
 from settings import Settings
@@ -18,7 +19,7 @@ class DBStorage(Storage):
         )''')
         self.conn.commit()
 
-    def save(self, products: list[dict]):
+    def save(self, products: list[Product]):
         cursor = self.conn.cursor()
         for product in products:
             cursor.execute('''
