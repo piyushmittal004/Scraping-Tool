@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
+    url: str = "https://dentalstall.com/shop"
     token: str = "somestatictoken"
     auth_scheme: str = "bearer"
     db_path:str = "path_to_db"
@@ -9,3 +10,4 @@ class Settings(BaseSettings):
     retry_num:int = 3
     http_header:dict = {"user-Agent": "Mozzila/5.0"}
     http_timeout:int = 10
+    storage:str = "file" # "file" or "db"

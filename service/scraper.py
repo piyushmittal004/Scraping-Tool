@@ -17,21 +17,22 @@ class Scraper:
         self.notifier:Notifier
         self.cache:Cache = Cache()
         self.settings:Settings = Settings()
+        self.__set_storage()
 
+    def __set_storage(self):
+        if self.settings.storage == "file":
+            self.storage = FileStorage(settings=self.settings)
+        if self.settings.storage == "db":
+            self.storage = DBStorage(settings=self.settings)
+    
     def scrape(self,scrape_configuration: ScrapeConfiguration) -> int:
         headers:dict = self.settings.http_header
         proxies:dict = {"http":scrape_configuration.proxy, "https":scrape_configuration.proxy} if scrape_configuration.proxy else None
-        products_scraped:int = 0
-
-        if scrape_configuration.storage == "db":
-            self.storage = DBStorage(settings=self.settings)
-                
-        if scrape_configuration.storage == "file":
-            self.storage = FileStorage(settings=self.settings)
+        products_scraped:int = 0 
 
         for page in range(1,scrape_configuration.pages+1):
             flag:bool = False
-            url:str = f"{scrape_configuration.url}/page/{page}"
+            url:str = f"{self.settings.url}/page/{page}"
             for _ in range(self.settings.retry_num):
                 try:
                     response = requests.get(url, headers=headers, proxies=proxies, timeout = self.settings.http_timeout)

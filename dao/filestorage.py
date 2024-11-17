@@ -7,7 +7,8 @@ from utility.saveimage import save_image
 
 class FileStorage(Storage):
     def __init__(self, settings: Settings):
-        self.settings = settings
+        self.settings:Settings = settings
+        self.data = []
         os.makedirs(os.path.dirname(self.settings.file_path), exist_ok=True)
         try:
             with open(self.settings.file_path, 'w') as file:
@@ -20,15 +21,16 @@ class FileStorage(Storage):
         try:
             with open(self.settings.file_path, 'r') as file:
                 try:
-                    data = json.load(file)
+                    self.data = json.load(file)
                 except Exception as e:
                     print(f"An error Occured while loading the file: {e}")
-                    data = []
-            data.append(product_dict)
+                    self.data = []
+            
+            self.data.append(product_dict)
 
             with open(self.settings.file_path,'w') as file:
                 try:
-                    json.dump(data,file,indent=4)
+                    json.dump(self.data,file,indent=4)
                 except Exception as e:
                     print(f"An error occured: {e}")
         except Exception as e:
