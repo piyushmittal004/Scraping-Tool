@@ -27,20 +27,23 @@ class Scraper:
                     response.raise_for_status()
                     flag = True
                     break
-                except requests.RequestException:
+                except requests.RequestException as e:
+                    print(f"An error Occured: {e}")
                     time.sleep(3)
             if not flag:
                 continue
             #print(response.text)
             soup = BeautifulSoup(response.text, "html.parser")
             #print(soup.prettify())
-            products = soup.select(".products")
+            products = soup.select(".product")
+            print(len(products))
             for product in products:
                 title = product.select_one(".woo-loop-product__title").text.strip()
                 price = product.select_one(".woocommerce-Price-amount").text.replace("₹","").strip()
                 #print(product.select_one("img").get("src"))
                 img_url = product.select_one("img").get("data-lazy-src")
-                #print("Product End")
+                print(title)
+                print("Product End")
                 img_dir = save_image(img_url, settings.img_path)
                 new_product = Product(product_title=title, product_price=price, path_to_image=img_dir)
                 product_list.append(new_product)
