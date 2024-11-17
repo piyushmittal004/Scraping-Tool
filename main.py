@@ -9,6 +9,6 @@ app = FastAPI()
 scraper = Scraper()
 
 @app.post("/scrape")
-def scrape(scrape_conf: ScrapeConfiguration, token: Annotated[str, Depends(authentication.authenticate)]):
+def scrape(scrape_conf: ScrapeConfiguration, token: Annotated[str, Depends(authentication.authenticate)]) -> dict:
     product_scraped = scraper.scrape(scrape_conf)
     return {"Message": "Scraping Successful", "Products Scraped": product_scraped}

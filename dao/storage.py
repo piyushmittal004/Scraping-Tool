@@ -4,5 +4,5 @@ from Model.product import Product
 
 class Storage(ABC):
     @abstractmethod
-    def save(self, products: list[Product]):
+    def save(self, product: Product) -> None:
         pass
