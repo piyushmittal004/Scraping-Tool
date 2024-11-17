@@ -1,0 +1,17 @@
+[
+    {
+        "product_title": "1 x GDC Extraction Forceps Lo...",
+        "product_price": 850.0,
+        "path_to_image": "data/images/GDC-Extraction-Forceps-Lower-Molars-86A-Standard-FX86AS-300x300.jpg"
+    },
+    {
+        "product_title": "3M ESPE Restorative Introduct...",
+        "product_price": 4395.0,
+        "path_to_image": "data/images/03-44-700x700-1-300x300.jpg"
+    },
+    {
+        "product_title": "Advance Biotech Surgicoll Mes...",
+        "product_price": 795.0,
+        "path_to_image": "data/images/surgicoll-300x300.jpg"
+    }
+]
